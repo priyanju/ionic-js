@@ -1,0 +1,66 @@
+
+
+    <ion-view cache-view="false" class="slidepopup" ng-controller="MachineCtrl">
+
+      
+                          <ion-content scroll="true" >
+                            <button></button>
+                          
+                             <div class="row" ng-show="IDStatus==3"  style="background-color:#6BD191">             
+                               <div class="col col-90"> <p class="statustext">RUNNING</p></div>
+                               <div class="col col-10" ng-click="closeModal();mod_hoursplitside='0'"> <i class="icon ion-close closes"></i> </div>
+                             </div>
+
+                              <div class="row" ng-show="IDStatus==0"  style="background-color:#eaab5b">             
+                               <div class="col col-90"> <p class="statustext">IDLETIME</p></div>
+                               <div class="col col-10" ng-click="closeModal();mod_hoursplitside='0'"> <i class="icon ion-close closes"></i> </div>
+                             </div>
+
+                             <div class="row" ng-show="IDStatus==100"  style="background-color:#ed6661">             
+                               <div class="col col-90"> <p class="statustext">STOPPED</p></div>
+                               <div class="col col-10" ng-click="closeModal();mod_hoursplitside='0'"> <i class="icon ion-close closes"></i> </div>
+                             </div> 
+
+
+
+ 
+
+
+
+                              <div class="card">
+                                <div class="row">
+                                  <div class="col col-60">Time</div>
+                                  <div class="col col-40">H:M:S</div>
+                                </div>
+                              </div>
+                              
+                              <div class="card " ng-repeat="catvalue in MachineTimeDetails " ng-show="catvalue.hour != null" ng-click="model_hoursplit1(catvalue.hour)">
+                                
+                                <div class="row icon-right" style="color: gray;font-weight: bold;" >
+                                  <div class="col col-60">{{catvalue.hour}}</div>
+                                  <div class="col col-30">{{catvalue.total_time}}</div>
+                                  <div class="col col-10" ng-class=" IsVisible  ?  'ion-ios-arrow-down' : 'ion-ios-arrow-forward '"></div>
+
+                                </div>
+                              
+                  
+                                <div  ng-show = "IsVisible"  ng-if="catvalue.hour == subid && MachineReportTimes == false">No Data found</div>
+                                <div class="row " style="color: #604646;border-bottom: 1px solid #9c9c9c;padding: 5px;" ng-if="catvalue.hour == subid" ng-show = "IsVisible" ng-repeat="subcat in MachineReportTimes" 
+                                 ng-click="subCategory(subcat.id,subcat.name)">
+                                 
+                                 <div ng-if="IDStatus==3" class="col col-60">{{subcat.time_interval}}</div> 
+                                 <div ng-if="IDStatus==3" class="col col-40">{{subcat.run_time}}</div>
+
+                                 <div ng-if="IDStatus==0" class="col col-60">{{subcat.time_interval}}</div> 
+                                 <div ng-if="IDStatus==0" class="col col-40">{{subcat. ideal_time}}</div>
+
+                                 <div ng-if="IDStatus==100" class="col col-60">{{subcat.time_interval}}</div> 
+                                 <div ng-if="IDStatus==100" class="col col-40">{{subcat.stop_time}}</div> 
+
+                               </div>
+                           </div>
+
+         
+                                       
+            </ion-content> 
+        </ion-view>

@@ -1,0 +1,248 @@
+<ion-view ng-app="ionicApp"  cache-view="false">
+         <link href="css/job.css" rel="stylesheet" cache-view="false"> 
+
+  <ion-content>
+
+                           <img src="img/noprocess.jpg" style="width: 45%;height: 45%;margin: 80px 100px;">
+
+      <!-- <ion-list>
+        <div ng-repeat="group in jobname">
+               <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+                         <i class="iconcolor" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"><a class="icontext">  {{group.description}}</a>
+                         </i>&nbsp;
+                  
+               </ion-item>
+    
+               <ion-item class="item-accordion" ng-show="isGroupShown(group)">
+                   <div style="background-color: #FFFFFF;">
+                   <table style="width:100%">
+
+                     <tr>
+                       <th>Job Start Date</th>
+                       <td class="tddetails">{{job_start_date}}</td>
+                     </tr>
+
+                     <tr>
+                       <th>Job Due Date</th>
+                       <td class="tddetails">{{job_due_date}}</td>
+                     </tr>
+
+                    
+                     <tr>
+                       <th>Order Quantity</th>
+                       <td class="tddetails">{{order_quantity}}</td>
+                     </tr>
+
+                     <tr>
+                       <th>Parts Remaining</th>
+                       <td class="tddetails">{{remaining_parts}}</td>
+                     </tr>
+
+                     <tr>
+                       <th>Parts Produced</th>
+                       <td class="tddetails">{{parts_produced}}</td>
+                     </tr>
+
+                     <tr>
+                       <th>Parts Delivered</th>
+                       <td class="tddetails">{{parts_deliverd}}</td>
+                     </tr>
+
+                     <tr>
+                       <th>Rework</th>
+                       <td class="tddetails">{{rework}}</td>
+                     </tr>
+
+                      <tr>
+                       <th>Rejects</th>
+                       <td class="tddetails">{{reject}}</td>
+                     </tr>
+
+                     <tr>
+                       <th>Final Inspected Quantity</th>
+                       <td class="tddetails">{{final_inspected_quantity}}</td>
+                     </tr>
+
+
+              </table>
+                   </div>
+       <div>
+          <table style="margin-bottom: 10px;width:100%">
+            
+              <tr>
+                 <th class="tdjobtitle1">Seq No</th>
+                 <th class="tdjobtitle2">Operation Name</th>      
+                 <th class="tdjobtitle3">Completed</th>
+                 <th class="tdjobtitle4">Remaining</th>
+              </tr>
+           
+              <tr ng-repeat="x in operationdetails" >
+                  <td class="tdjob">{{$index+1}}</td>
+                  <td class="tdjob">{{x.operation_name}}</td>
+                  <td class="tdjob">{{x.parts_produced}}</td> 
+                  <td class="tdjob">{{x.parts_remaining}}</td>    
+              </tr>
+            
+           </table>           
+      </div>
+           
+      <div>
+         <p align="right"><a ng-click="ope()">Operation Details ?</a></p>
+       </div>
+<br><br>
+      </ion-item>
+      
+    </div> 
+  </ion-list>
+ --><!-- operation popup-->
+ </ion-content>
+</ion-view>
+
+ 
+
+<!-- <script id="template/operation.html" type="text/ng-template">
+  <div>
+    <ion-modal-view>    
+
+
+     <ion-header-bar>
+          <div class="row">             
+             <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+             <div class="col col-10"> <i class="icon ion-android-close close" ng-click="close()"></i> </div>
+          </div>
+    </ion-header-bar>
+     
+<ion-content> 
+ <div>     
+     <ul>
+        <li ng-repeat="item in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
+         
+              <div>
+             <div class="header">Operation Details</div>
+                              
+             <table style="width:100%;">
+
+                       <tr>
+                       <th class="thname">Operation Name</th>
+                       <td class="tdname">{{item.operation_name}}</td>
+                     </tr>
+                    
+                      <tr>
+                       <th class="thname">Description</th>
+                       <td class="tdname">{{item.description}}</td>
+                     </tr>
+
+                     <tr>
+                       <th class="thname">Operation No</th>
+                       <td class="tdname">{{item.operation_no}}</td>
+                     </tr>
+
+                     <tr>
+                       <th class="thname">Cycle Time</th>
+                       <td class="tdname">{{item.cycle_time}}</td>
+                     </tr>
+
+                     <tr>
+                       <th class="thname">Idle Cycle Time</th>
+                       <td class="tdname">{{item.idle_cycle_time}}</td>
+                     </tr>
+      
+                     <tr>
+                       <th class="thname">Start Date</th>
+                       <td class="tdname">{{item.start_date}}</td>
+                     </tr>
+
+                      <tr>
+                       <th class="thname">End Date</th>
+                       <td class="tdname">{{item.end_date}}</td>
+                     </tr> 
+
+                      <tr>
+                       <th class="thname">Parts Produced</th>
+                       <td class="tdname">{{item.parts_produced}}</td>
+                     </tr>
+
+
+                      <tr>
+                       <th class="thname">Remaining Parts</th>
+                       <td class="tdname">{{item.remaining_parts}}</td>
+                     </tr>
+
+                     <tr>
+                       <th class="thname">Remaining Parts</th>
+                       <td class="tdname">{{item.remaining_parts}}</td>
+                     </tr>
+
+
+                     <tr>
+                       <th class="thname">rejects</th>
+                       <td class="tdname">{{item.reject}}</td>
+                     </tr>
+
+                      <tr>
+                       <th class="thname">inspected</th>
+                       <td class="tdname">{{item.inspected}}</td>
+                     </tr>
+
+                      <tr>
+                       <th class="thname">Rework</th>
+                       <td class="tdname">{{item.rework}}</td>
+                     </tr>       
+                   
+         </table>
+      </div>
+        </li>
+    </ul>
+   
+<center>
+    <button class="previousnext" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+        Previous
+    </button>
+     <button class="previousnext">
+            {{currentPage+1}}/{{numberOfPages()}}
+
+    </button>
+    <button class="previousnext" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+        Next
+    </button>
+
+</center>
+
+</div>
+</ion-content>
+   </ion-modal-view>
+  </div>
+</script>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

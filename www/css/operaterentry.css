@@ -1,0 +1,53 @@
+.icon1 {
+       font-size: 30px;
+       padding: 40px;  
+}
+.iconcolor {
+       font-size: 20px;
+       padding-left: 25px;
+       padding-right: 25px;
+       color:#0576D2;
+}
+.icontext{
+      font-size: 20px;
+      color:#616161;
+      font-family:"Montserrat";
+}
+.bar{
+        width: 100%;
+        background-color: #F69222;
+}
+.gonext-button {
+        background-color:#F69222;
+        width: 50%;
+        height: 38px !important;
+        min-height: 38px!important;
+        color: #fff;
+}
+.linetext{
+        display: block;
+        display: -webkit-box;
+        max-width: 400px;
+        margin: 0 auto;
+        line-height: 1.4;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+.testlabel{
+        font-size: 10px;
+}
+.close{
+      color: #616161;
+      font-size: 22px;
+}
+.header {
+      padding:10px;
+      background:#444444;
+      font-weight: bold;
+      color: #FFFFFF;
+       text-align: center;
+      font-size: 15px;
+      font-family: "Montserrat";
+}

@@ -1,0 +1,282 @@
+<ion-view view-title="Dashboard"  cache-view="false">
+  <!-- <link cache-view="false" href="css/home.css" rel="stylesheet"> -->
+    <ion-content  ng-init="dashboard()" ng-class="{'background':machineCount <= 3, 'backgroundsmall':machineCount >= 4}">
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+        <center>
+         <p class="timetitle">Shift : {{cardnames.data["Unit - 1"][0].shift_no}} | Shift Time: {{cardnames.data["Unit - 1"][0].start_time  | date:'dd-MM-yyyy hh:mm a'}}</p>
+        </center> 
+        <!-- <center>
+         <p class="timetitle">Report From:{{start_time}}</p>
+        </center> -->
+        <!--  {{cardnames.length}} -->
+<!-- 
+        <div ng-repeat="x in cardnames">
+          {{x.machine_name}}
+        </div> -->
+        <div  ng-repeat="(key,val) in cardnames.data" ng-if="machineCount <= 3">
+            <link cache-view="false" href="css/home.css" rel="stylesheet">
+            <div class="row" style="margin-bottom:5px;">
+                <div style="text-align: right;border-bottom:1px solid black;" class="col col-100">
+                    <span style="float:left;font-size:14px">{{key}}</span>
+                    <span class="statusHeader" ng-click="statusfill = ''" style="font-size:11px; color: #f69123">Machines({{val.length}})</span>
+                    <span class="statusHeader" ng-click="statusfill = 3" style="font-size:11px; color: #396ae2;">Running({{cardnames.count[key].running -- 0}})</span>
+                    <span class="statusHeader" ng-click="statusfill = 0" style="font-size:11px; color: #396ae2;">Idle({{(cardnames.count[key].idle1) -- (cardnames.count[key].idle)}})</span>
+                    <span class="statusHeader" ng-click="statusfill = 100" style="font-size:11px; color: #396ae2;">Stop({{cardnames.count[key].stop -- 0}})</span>
+                </div>
+              </div>
+            <div class="dark card"  ng-repeat="x in val"  >
+              <div class="container" >
+                  <div class="row sub_header">
+      <div class="col col-33">
+      
+        <span class="single_machine_status" ng-class="{running :x.machine_status =='3' ,stopped :x.machine_status=='100',nodata: x.machine_status == null,idle : x.machine_status != '3' && x.machine_status !='100' && x.machine_status != null}"></span>
+        
+      </div>
+      <div class="col col-33">
+        <label class="date_col">Today: <span>{{date | date:'dd-MM-yyyy'}}</span></label>
+      </div>
+      <div class="col col-33">
+        <label class="time_col">{{date | date:'hh:mm:ss'}}<span>{{ date | date:'a'}}</span></label>
+      </div>
+    </div>
+  
+
+    </div> 
+    <div style="text-align: center; font-size:20px">{{x.machine_name}}</div>
+    <div class="row utilization_row">
+      <div class="col col-50 text-center">
+        <div class="gradient-wrapper">
+          <percent-display percent="x.utilization" side="130" colors="#27272e #EE922F" ng-class="{green :x.machine_status =='3' ,red :x.machine_status=='100',yellow : x.machine_status != '3' && x.machine_status !='100' && x.machine_status != null}"></percent-display> 
+
+          <!-- singleMachineRes.utilization -->
+        </div>
+
+      </div>
+      <div class="col col-50">
+        <p style="text-align: center;">Spindle </p>
+        <div class="row">
+          <div class="col-50 text-center">
+            <div class="gradient-wrapper2">
+              <percent-display percent="x.spindle_load" side="50" colors="#27272e #EE922F"></percent-display>
+              <p>Load</p>
+            </div>
+          </div>
+          <div class="col-50 text-center">
+            <div class="gradient-wrapper3">
+              <percent-display percent="x.sp_temp" side="50" colors="#27272e #EE922F"></percent-display>
+              <p>Temp</p>
+            </div>
+          </div>
+      
+        </div>
+    
+      </div>
+    </div>
+  
+
+    <div>
+        <div>
+     
+      <div class="col col-100" style="text-align: center;">{{x.job_name}}</div>
+    </div>
+   <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-android-time"></i>
+      </div>
+      <div class="col col-40">Start Time</div>
+      <div class="col col-50">{{x.start_time | date:'dd-MM-yyyy'}} {{x.start_time | date:'hh:mm:ss'}}<span>{{ x.start_time | date:'a'}}</span></div>
+    </div>
+     <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-gear-a"></i>
+      </div>
+
+      <div class="col col-40" ng-click="PartsCountModal(x.job_wise_parts)">Parts Produced <i class="icon ion-ios-information graph" ></i></div>
+      <div class="col col-50">
+        <span>MD:{{x.machine_disply}}Nos /</span>
+        <span>C:{{x.parts_count}}Nos</span>
+      </div>
+    </div>
+        <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-android-time"></i>
+      </div>
+      <div class="col col-40">Cycle Time</div>
+      <div class="col col-50">{{x.cycle_time}}</div>
+    </div>
+     <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-stop"></i>
+      </div>
+      <div class="col col-40">Cutting Time</div>
+      <div class="col col-50">{{x.cutting_time}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-play"></i>
+      </div>
+      <div class="col col-40">Run Time</div>
+      <div class="col col-50">{{x.total_run_time }}</div>
+    </div>
+
+     
+    <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-pause"></i>
+      </div>
+      <div class="col col-40" >Idle Time </div>
+      <div class="col col-50">{{x.idle_time}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-stop"></i>
+      </div>
+      <div class="col col-40">Stop Time</div>
+      <div class="col col-50">{{x.total_stop_time}}</div>
+    </div>
+
+     <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-forward"></i>
+      </div>
+      <div class="col col-40" >Spindle Speed </div>
+      <div class="col col-50">{{x.spindle_speed}}&nbsp; RPM</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-10">
+        <i class="icon ion-wifi"></i>
+      </div>
+      <div class="col col-40" >Feed Rate</div>
+      <div class="col col-50">{{x.feed_rate}} &nbsp;m/min</div>
+    </div>
+
+  </div>
+                    </div>
+             </div>        
+             <!-- <div >
+            <div class="row" ng-repeat="i in [0,1,2,3,4,5,6,7]">
+              <div   style="padding: 0">
+             <div class="card" style="padding: 0">
+              <div class="item item-text-wrap" style="font-size: 12px;">
+               VMC
+              </div>
+            </div>
+          </div>
+          </div> -->
+
+          <!-- ng-if="cardnames.length < 1" -->
+<div ng-repeat="(key,val) in cardnames.data" ng-if="machineCount >= 4"> 
+    <link href="css/homemodel.css" rel="stylesheet" cache-view="false">
+      <div class="row" style="margin-bottom:5px;">
+        <div style="text-align: right;border-bottom:1px solid #ddd;" class="col col-100">
+            <span style="float:left;font-size:14px">{{key}}</span>
+            <span class="statusHeader" ng-click="statusfill = ''" style="font-size:11px; color: #f69123">Machines({{val.length}})</span>
+            <span class="statusHeader" ng-click="statusfill = 3" style="font-size:11px; color: #396ae2;">Running({{cardnames.count[key].running -- 0}} )</span>
+            <span class="statusHeader" ng-click="statusfill = 0" style="font-size:11px; color: #396ae2;">Idle({{(cardnames.count[key].idle1) -- (cardnames.count[key].idle)}})</span>
+            <span class="statusHeader" ng-click="statusfill = 100" style="font-size:11px; color: #396ae2;">Stop({{cardnames.count[key].stop -- 0}})</span>
+        </div>
+      </div>
+    
+
+      <!-- filter:{machine_status:statusfill} -->
+      <div class="row" style="flex-wrap:wrap;">
+        <div class="col col-25" ng-repeat="x in val">         
+           <div class="card" ng-click="machineClick(x)" style="margin:0;box-shadow:none;">
+              <div class="item item-text-wrap smallcard"  ng-class="{'running':x.machine_status==3,'stopped':x.machine_status==100,
+                         'idle':x.machine_status != 100 && x.machine_status != 3 || x.machine_status == 0,
+                         'nodata':x.machine_status == null}">
+              <span style="line-height:16px;">{{x.mac_name | splithtml:'/':1}}</span>
+              </div>
+          </div>
+        </div> 
+      </div>
+      </div>             
+    </ion-content>
+</ion-view>
+<!-- 
+<script id="template/downtime.html" type="text/ng-template">
+    <ion-modal-view class="downtimepopup">    
+
+       <ion-header-bar class="bar bar-header head">          
+          <div class="row">             
+             <div class="col col-90" > <p class="titletext">Downtime Details</p></div>
+             <div class="col col-10"> <i class="icon ion-close close" ng-click="Downtimeclose()"></i> </div>
+          </div>
+       </ion-header-bar>
+         <ion-content>
+              <table>
+                 <tr>
+                   <td class="tdtitle bg_grey">Possible Load & Unload Time</td>
+                   <td class="tdtable bg_grey">{{totalloadunloadtime}}</td>                    
+                 </tr>
+                 <tr>
+                   <td class="tdtitle">Idle</td>
+                   <td class="tdtable">{{idletime}}</td>                    
+                 </tr>
+                 <tr>
+                     <td class="tdtitle bg_grey">Total</td>
+                     <td class="tdtable bg_grey">{{downtime}}</td>
+                 </tr>                
+              </table>
+          </ion-content>
+     </ion-modal-view>
+</script> -->
+
+
+<script id="template/partscount.html" type="text/ng-template">
+  <div>
+    <ion-modal-view class="partscountpopup">    
+
+       <ion-header-bar class="bar bar-header head">          
+          <div class="row">             
+             <div class="col col-90"><p class="titletext">Parts Count Details</p></div>
+             <div class="col col-10"> <i class="icon ion-close close" ng-click="PartsCountclose()"></i> </div>
+          </div>
+       </ion-header-bar>
+         <ion-content>
+              <table>
+                 <tr>
+                    <td class="tdtitle">Program Number</td>
+                    <td class="tdtitle">PartsCount</td>
+                 </tr>
+                 <tr ng-repeat="(key,val) in Details">
+                   <td class="tdtable bg_grey">{{key}}</td>
+                   <td class="tdtable bg_grey">{{val}}</td>  
+                                     
+                 </tr>          
+              </table>
+          </ion-content>
+     </ion-modal-view>
+  </div>
+</script> 
+
+
+<script id="template/datasentry.html" type="text/ng-template">
+    <ion-modal-view class="downtimepopup">    
+
+       <ion-header-bar class="bar bar-header head">          
+          <div class="row">             
+             <div class="col col-90"><p class="titletext">warning</p></div>
+             <div class="col col-10"> <i class="icon ion-close close" ></i> </div>
+          </div>
+       </ion-header-bar>
+         <ion-content>
+         <br>
+            <center> <p>Some kind of data missing if you entry the details</p></center>
+                  <div class="row">
+                          <div class="col col-50 col-center">
+                            <center><button typt="submit" class="button next-button">Later</button></center>
+                          </div>
+                          <div class="col col-50">
+                            <center><button typt="submit" ng-click="now()" class="button next-button">Now</button></center>
+                          </div>
+                  </div>
+          </ion-content>
+     </ion-modal-view>
+</script>
+
+
+

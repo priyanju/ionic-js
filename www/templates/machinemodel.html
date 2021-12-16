@@ -1,0 +1,164 @@
+<ion-view >
+    <!-- class="Machinepopup" -->
+    <link href="css/homemodel.css" rel="stylesheet" cache-view="false">
+  <ion-header-bar class="machine_status_header">
+
+    <h1 class="title" >
+     <div>Machine Details</div>
+      <a class="button button-icon icon ion-close" ng-click="machineModel.hide();loadStatus()"></a>
+    </h1>
+
+  </ion-header-bar>
+
+  <ion-content>
+  
+    <div class="row sub_header">
+      <div class="col col-33">
+        <span class="single_machine_status" ng-class="{running :singleMachineRes.machine_status =='3' ,stopped :singleMachineRes.machine_status=='100',nodata: singleMachineRes.machine_status == null,idle : singleMachineRes.machine_status != '3' && singleMachineRes.machine_status !='100' && singleMachineRes.machine_status != null}"></span>
+      </div>
+      <div class="col col-33">
+        <label class="date_col">Today: <span>{{date | date:'dd-MM-yyyy'}}</span></label>
+      </div>
+      <div class="col col-33">
+        <label class="time_col">{{date | date:'hh:mm:ss'}}<span>{{ date | date:'a'}}</span></label>
+      </div>
+    </div>
+  
+
+    </div> 
+    <div style="text-align: center; font-size:20px"> {{singleMachineRes.machine_name}}</div>
+    <div class="row utilization_row">
+      <div class="col col-50 text-center">
+        <div class="gradient-wrapper">
+          <percent-display percent="singleMachineRes.utilization" side="130" colors="#27272e #EE922F" ng-class="{green :singleMachineRes.machine_status =='3' ,red :singleMachineRes.machine_status=='100',yellow : singleMachineRes.machine_status != '3' && singleMachineRes.machine_status !='100' && singleMachineRes.machine_status != null}"></percent-display>
+          <!-- singleMachineRes.utilization -->
+        </div>
+         
+
+      </div>
+      <div class="col col-50">
+        <p style="text-align: center;">Spindle </p>
+        <div class="row">
+          <div class="col-50 text-center">
+            <div class="gradient-wrapper2">
+              <percent-display percent="singleMachineRes.spindle_load" side="50" colors="#27272e #EE922F"></percent-display>
+              <p>Load</p>
+            </div>
+          </div>
+          <div class="col-50 text-center">
+            <div class="gradient-wrapper3">
+              <percent-display percent="singleMachineRes.sp_temp" side="50" colors="#27272e #EE922F"></percent-display>
+              <p>Temp</p>
+            </div>
+          </div>
+      
+        </div>
+          
+
+      </div>
+    </div>
+    
+  <div>
+   
+      <div>
+     
+      <div class="col col-100" style="text-align: center;">{{singleMachineRes.job_name}}</div>
+    </div>
+
+     <div class="row">
+
+      <div class="col col-10">
+        <!-- <i class="icon ion-android-time"></i> -->
+       <b> <img  class="icon" src="img/start time.png" style="width: 95%;height: 50%;"> </b>
+
+      </div>
+      <div class="col col-40"><b>Start Time</b></div>
+      <div class="col col-50">{{singleMachineRes.start_time | date:'dd-MM-yyyy'}} {{singleMachineRes.start_time | date:'hh:mm:ss'}}<span>{{ singleMachineRes.start_time | date:'a'}}</span></div>
+    </div>
+
+     <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-gear-a"></i> -->
+       <b> <img  class="icon" src="img/parts.png" style="width: 99%;height: 75%;"> </b>
+
+      </div>
+      <div class="col col-40" ng-click="PartsCountModal(singleMachineRes.job_wise_parts)"><b>Parts Produced</b> <i class="icon ion-ios-information graph" ></i></div>
+      <div class="col col-50">
+        <span>MD:{{singleMachineRes.machine_disply}}Nos /</span>
+        <span>C:{{singleMachineRes.parts_count}}Nos</span>
+      </div>
+    </div>
+        <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-android-time"></i> -->
+        <b><img  class="icon" src="img/cycle time.png" style="width: 99%;height: 60%;"> </b>
+
+      </div>
+      <div class="col col-40"><b>Cycle Time</b></div>
+      <div class="col col-50">{{singleMachineRes.cycle_time}}</div>
+    </div>
+     <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-stop"></i> -->
+        <img  class="icon" src="img/image_new.png" style="width: 90%;height: 55%;"> 
+
+      </div>
+      <div class="col col-40"><b>Cutting Time</b></div>
+      <div class="col col-50">{{singleMachineRes.cutting_time}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-play"></i> -->
+        <img  class="icon" src="img/run time.png" style="width: 99%;height: 82%;"> 
+
+      </div>
+      <div class="col col-40"><b>Run Time</b></div>
+      <div class="col col-50">{{singleMachineRes.run_time}}</div>
+    </div>
+
+     
+    <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-pause"></i> -->
+        <img  class="icon" src="img/idle time.png" style="width: 99%;height: 65%;"> 
+
+      </div>
+      <div class="col col-40" ><b>Idle Time </b></div>
+      <div class="col col-50">{{singleMachineRes.idle_time}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-stop"></i> -->
+       <b> <img  class="icon" src="img/stop time.png" style="width: 95%;height: 60%;"> </b>
+
+      </div>
+      <div class="col col-40"><b>Stop Time</b></div>
+      <div class="col col-50">{{singleMachineRes.stop_time}}</div>
+    </div>
+
+     <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-forward"></i> -->
+        <img  class="icon" src="img/speed.png" style="width: 95%;height: 69%;"> 
+
+      </div>
+      <div class="col col-40" ><b>Spindle Speed </b></div>
+      <div class="col col-50">{{singleMachineRes.spindle_speed}}&nbsp; RPM</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-10">
+        <!-- <i class="icon ion-wifi"></i> -->
+        <!-- <i class="icon ion-feedrate"></i> -->
+       <b> <img  src="img/feed rate.png" style="width: 85%;height: 69%;"> </b>
+
+      </div>
+      <div class="col col-40" ><b>Feed Rate</b></div>
+      <div class="col col-50">{{singleMachineRes.feed_rate}} &nbsp;m/min</div>
+    </div>
+
+  </div>
+  </ion-content>
+</ion-view>

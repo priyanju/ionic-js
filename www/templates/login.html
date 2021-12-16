@@ -1,0 +1,128 @@
+<ion-view hide-nav-bar="true" cache-view="false" ng-hide="version.version == 1">
+   <link href="css/login.css" rel="stylesheet" cache-view="false">
+      
+       <ion-content class="loginbackgorund">
+         <div ng-controller="LoginCtrl" >
+        
+            <div class="col col-center text-center">
+                <img src="img/Logo.png" class="text-top-img">
+            </div>
+            <div class="row">
+              <div class="col col-center">
+                  <p class="title" style="color:#828282">i-Solutions for all your machine shop needs</p>
+              </div>
+            </div>
+         
+       <form name="form" role="form" >
+
+          <div class="row" >
+              <div class="col col-10"></div>
+                  <div class="col col-80 col-center">
+                     <div class="form-group">
+                         <label class="item item-input label-type">
+                         <i class="icon ion-android-person person"></i>
+                           <input type="text" class="text-type" placeholder="Email-ID" ng-model="login.email_id"/>
+                         </label>
+                     </div>
+                  </div>
+              <div class="col col-10"></div>
+           </div>
+
+           <div class="row">
+              <div class="col col-10"></div>
+                  <div class="col col-80 col-center">
+                      <div class="form-group">
+                        <label class="item item-input label-type">
+                            <i class="icon ion-locked password"></i>
+                            <input type="password" class="text-type" placeholder="Password" ng-model="login.password"/>
+                        </label>
+                      </div>
+                  </div>
+                <div class="col col-10"></div>
+            </div>           
+
+            <div class="row">
+                 <div class="col col-10"></div>
+                    <div class="col col-80 col-center">
+                        <center><button typt="submit" ng-click="signin()" class="button login-button">Sign In</button></center>
+                    </div>
+                 <div class="col col-10"></div>
+            </div>
+        </form> 
+
+           <div class="row">
+               <div class="col col-10"></div>
+                   <div class="col col-80">
+                      <div ng-click="ForgotPasswordModal()" style="text-align:center;color:#828282"> Forgot Password?</div>
+                   </div>
+              <div class="col col-10"></div>
+           </div>             
+
+       </div>
+   </ion-content>
+</ion-view>
+<ion-view hide-nav-bar="true" cache-view="false" >
+   <link href="css/login.css" rel="stylesheet" cache-view="false">
+      
+       <ion-content class="loginbackgorund">
+         <div ng-controller="LoginCtrl" ng-init="loginInit()">
+        
+            <div class="col col-center text-center">
+                <img src="img/Logo.png" class="text-top-img">
+            </div>
+            <div class="row">
+              <div class="col col-center">
+                  <p class="title" style="color:#828282">i-Solutions for all your machine shop needs</p>
+              </div>
+            </div>
+         
+       <form name="form" role="form" >
+
+          <div class="row" >
+              <div class="col col-10"></div>
+                  <div class="col col-80 col-center">
+                     <div class="form-group">
+                         <label class="item item-input label-type">
+                         <i class="icon ion-android-person person"></i>
+                           <input type="text" class="text-type" placeholder="Email-ID" ng-model="login.email_id"/>
+                         </label>
+                     </div>
+                  </div>
+              <div class="col col-10"></div>
+           </div>
+
+           <div class="row">
+              <div class="col col-10"></div>
+                  <div class="col col-80 col-center">
+                      <div class="form-group">
+                        <label class="item item-input label-type">
+                            <i class="icon ion-locked password"></i>
+                            <input type="password" class="text-type" placeholder="Password" ng-model="login.password"/>
+                        </label>
+                      </div>
+                  </div>
+                <div class="col col-10"></div>
+            </div>           
+
+            <div class="row">
+                 <div class="col col-10"></div>
+                    <div class="col col-80 col-center">
+                        <center><button typt="submit" ng-click="signin()" class="button login-button">Sign In</button></center>
+                    </div>
+                 <div class="col col-10"></div>
+            </div>
+        </form> 
+
+           <div class="row">
+               <div class="col col-10"></div>
+                   <div class="col col-80">
+                      <div ng-click="ForgotPasswordModal()" style="text-align:center;color:#828282"> Forgot Password?</div>
+                   </div>
+              <div class="col col-10"></div>
+           </div>      
+       </div>
+      
+   </ion-content>
+  
+</ion-view>
+

@@ -1,0 +1,79 @@
+<ion-view ng-controller="MissingdataCtrl"   cache-view="false">
+  <link href="css/home.css" rel="stylesheet" cache-view="false">
+
+		     <ion-header-bar>
+		         <div class="row">             
+		             <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+		             <div class="col col-10"><i class="icon ion-android-close close" ng-click="missingdataLogout()"></i></div>
+		         </div>
+		    </ion-header-bar>
+
+	<ion-content style="background-color: #b3afa7">
+
+              <div ng-show="Datastatus==1">
+                    <img src="img/nodata.jpeg" style="width: 100%;height: 50%;">
+              </div>
+
+              <div ng-show="Datastatus!=1">                     
+                       
+                            <div ng-repeat="x in Datamissing" class="card">
+
+                                   <div class="row"> 
+                                       <div class="col col-30"></div>
+                                       <div class="col col-40 labelsub1">{{$index+1}}.Details</div>
+                                       <div class="col col-30"></div>  
+                                    </div>                                                                       
+
+                                     <div class="row"> 
+                                       <div class="col col-50">Machine Name</div>
+                                       <div class="col col-50">{{x.machine.machine_name}}</div>  
+                                    </div>
+
+                                     <div class="row"> 
+                                       <div class="col col-50">Date</div>
+                                       <div class="col col-50">{{x.start_time | date:'dd-MM-yyyy'}}</div>  
+                                    </div>
+
+                                    <div class="row"> 
+                                       <div class="col col-50">Start Time</div>
+                                       <div class="col col-50">{{x.start_time | date : "shortTime"}}</div>  
+                                    </div>
+
+                                    <div class="row"> 
+                                       <div class="col col-50">End Time</div>
+                                       <div class="col col-50">{{x.end_time | date : "shortTime"}}</div>  
+                                    </div>
+
+                                    <div class="row"> 
+                                       <div class="col col-50">Program No</div>
+                                       <div class="col col-50"> 
+                                          <input type="text" name="input" ng-model="x.ProgramNo" 
+                                          style="border: 1px solid grey;width: 100%">         
+                                       </div>  
+                                    </div>
+
+                                    <div class="row"> 
+                                       <div class="col col-50">Idle Time</div>
+                                       <div class="col col-50"> 
+                                         <input type="text" name="input" ng-model="x.DownTime" 
+                                          style="border: 1px solid grey;width: 100%">
+                                       </div>  
+                                    </div>
+
+                                    <div class="row"> 
+                                       <div class="col col-50">Parts Count</div>
+                                       <div class="col col-50"> 
+                                          <input type="text" name="input" ng-model="x.PartsCount" 
+                                          style="border: 1px solid grey;width: 100%">         
+                                       </div>  
+                                    </div>   
+                          
+
+                            </div>
+                                    <center>
+                                            <button  ng-click="Dataloss()" class="next-button">OK</button>
+                                    </center>
+                               </div> 
+          
+    </ion-content>
+</ion-view>

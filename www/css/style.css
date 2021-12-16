@@ -1,0 +1,52 @@
+html, body, div, span, applet, object, label, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, u, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, fieldset, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.button {
+    font-family: 'Montserrat', sans-serif!important;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+    font-family: 'Montserrat', sans-serif!important;
+    font-size: 13px!important;
+}
+
+.ionic_datepicker_popup .popup-body .selected_date_full {
+    background-color: #F69222 !important;
+}
+.ionic_datepicker_popup .popup-buttons button {
+    background-color: #F69222 !important;
+    }
+
+    .ionic_datepicker_popup .selected_date {
+    background-color: grey !important;
+}
+
+.ionic_datepicker_popup .popup-body .button-clear {
+    color:#F69222 !important;
+}
+
+.ionic_datepicker_popup .popup-body .month_select, .ionic_datepicker_popup .popup-body .year_select {
+    border: none;
+        border-bottom-width: medium;
+        border-bottom-style: none;
+        border-bottom-color: currentcolor;
+    border-bottom: 1px solid #F69222 !important;
+    padding: 0;
+}
+
+
+#iphone-frame .statusbar {
+    background-image: url(../img/ios-statusbar.png);
+    color: #F69222
+  }
+  
+  #android-frame .statusbar {
+    background-image: url(../img/android-statusbar.png);
+    color: #F69222
+  }
+  
+  #windows-frame .statusbar {
+    background-image: url(../img/wp-statusbar.png);
+    color: #F69222
+  }

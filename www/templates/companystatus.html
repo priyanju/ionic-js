@@ -1,0 +1,50 @@
+<style>
+  .running1{
+    
+   
+    color:  rgb(44,190,99);
+}
+.idle1 {
+  
+  
+  color:  rgb(232,162,73);
+}
+.stopped1{
+ 
+  
+  color:  rgb(236,85,80);
+}
+.net1{
+  
+ 
+  color:  rgb(70, 63, 176);;
+}
+.nodata1{
+ color: #444444;
+}
+</style>
+<ion-view ng-controller="CompanyStatusCtrl" cache-view="false">
+         <link href="css/companystatus.css" rel="stylesheet" cache-view="false"> 
+
+    <ion-header-bar>
+         <div class="row">             
+             <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+             <div class="col col-10"><i class="icon ion-power logout" ng-click="Logout()"></i></div>
+         </div>
+    </ion-header-bar>        
+    <ion-content>    
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>      
+		    	<table>
+				  <tr>
+				    <th>Company Name</th>
+				    <th>Machine Name</th>
+				    <th>Last Date</th>
+				  </tr>
+				  <tr ng-repeat="x in companystatus" class="border" ng-class="{stopped1 :x.machine_status==100,nodata1: x.machine_status == null,running1: x.machine_status == 3,idle1 : x.machine_status==0,net1 : x.machine_status==500}">		 
+				    <td>{{x.tenant}}</td>
+				    <td>{{x.machine_name}}</td>
+				    <td>{{x.last_data | date:'dd/MM/yyyy hh:mm:ss a' }}</td>		   
+				  </tr>		  
+				</table>
+    </ion-content>
+</ion-view>

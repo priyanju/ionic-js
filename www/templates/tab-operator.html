@@ -1,0 +1,261 @@
+
+<style>
+  .operator_vw{
+    margin: 10px 10px!important;
+  }
+  .operator_vw .row{
+    display: block!important;
+    /* padding: 15px; */
+  }
+  .operator_vw h1{
+    font-size: 16px;
+    margin-bottom: 0px;
+  }
+  .operator_vw h1 span{
+    float: right;
+    font-size: 26px;
+    color: #b0b0b0;  
+  }
+  .operator_vw h2{
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+    margin: 5px 0px 0;
+  }
+  .operator_vw span{
+    font-size: 14px;
+    font-weight: 400;
+    display:inline-block;
+   border-radius:3px;
+   color: #f69222;
+  }
+  .edit-oprt{
+    position: absolute;
+    right:10px;
+    top:10px;
+    color: #f69222;
+    background: #fff;
+    padding: 5px 10px;
+    border-radius: 50%;
+  }
+
+  .scroll{
+  min-height:100%
+}  
+  .addoperator{
+    position: absolute;
+   bottom: 55px;
+   right: 15px;
+   font-size: 20px;
+   color: #fff !important;
+   background: none;
+   border: none;
+   background-color: #f69222;
+   border-radius: 50%;
+   height: 50px;
+   width: 50px;
+   -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+   z-index:1000;
+  }
+  .gonext-button {
+        background-color:#F69222;
+        width: 50%;
+        height: 38px !important;
+        min-height: 38px!important;
+        color: #fff;
+}
+</style>
+<ion-view ng-app="ionicApp" cache-view="false">
+    <button ng-click="opmodal.show()" class="addoperator"><i class="icon ion-plus"></i></button>
+   
+    <div class="bar bar-subheader">
+        <button class='button button-clear ion-ios7-arrow-left'></button>
+        <h2 class="title">sub header</h2>
+        <button class='button button-clear ion-ios7-arrow-right'></button>
+    </div>
+  <ion-content ng-init="operatorinit()" style="background: #f2f2f2;">
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="operatorinit()"></ion-refresher>
+  <!-- <center> <h3>Operator Allocation</h3></center>  -->
+    <!-- <button ng-click="opmodal.show()" class="addoperator"><i class="icon ion-plus"></i></button> -->
+
+   
+        <!-- <div class="row">
+            <div class="col col-20">Name</div>
+            <div class="col col-25">Machine</div>
+            <div class="col col-11" >Shift</div>
+            <div class="col col-25">Date</div>
+            <div class="col col-9"> Action</div>
+           
+          </div> -->
+        
+          <img ng-show="operator_alls.length <=0" src="img/nodata.jpeg" style="width: 100%;height: 50%;"> 
+
+    <div class="card operator_vw" style="color: #fff;font-weight: bold;" ng-click="alocate(operator.id)" ng-class="{'active': operator.id == subid}" ng-repeat="operator in operator_alls">
+      <div class="row" >
+        <h1>{{operator.machine.machine_name}}<span class="ion-trash-a" ng-click="deleteConf(operator.id)"></span></h1>
+       <span style="color:black"> <strong>Operator Name : </strong> {{operator.operator.operator_name}}</span>
+        <span><strong>Date:</strong> {{operator.from_date}} - {{ operator.to_date}}</span>&nbsp;&nbsp;<span><strong>Shift:</strong> {{operator.shifttransaction.shift_no}}</span>
+      </div>
+      <div ng-if="operator.id == subid" ng-show="IsVisible" ng-repeat="operator1 in operator.operator_mapping_allocations" ng-click="subCategory(subcat.id,subcat.name)" style="border-top:1px solid #f2f2f2;background: #f0f0f0;margin:5px 10px; padding: 5px 10px; position: relative;">
+          <!-- <h1>{{operator.machine.machine_name}}<span class="ion-edit" ng-show="{{todaydat | date: 'yyyy-MM-dd'}} >= {{operator1.date}}" ng-click="edit(operator.id,operator1)"></span></h1> -->
+          <span class="ion-edit edit-oprt" ng-show="{{todaydat | date: 'yyyy-MM-dd'}} >= {{operator1.date}}" ng-click="edit(operator.id,operator1)"></span>
+         <!-- <h2>{{operator1.operator.operator_name}}</h2> -->
+         <span style="color:#000000"> <strong>Operator Name : </strong> {{operator1.operator.operator_name}}</span><br>
+          <span><strong>Date:</strong> {{operator1.date}}</span>&nbsp;&nbsp;<span><strong>Shift:</strong> {{operator.shifttransaction.shift_no}}</span>
+        </div>
+      
+      <!-- <div class="row icon-right">
+        <div class="col col-20" ng-click="alocate(operator.id)">{{operator.operator.operator_name}}</div>
+        <div class="col col-25" ng-click="alocate(operator.id)">{{operator.machine.machine_name}}</div>
+        <div class="col col-10" ng-click="alocate(operator.id)">{{operator.shifttransaction.shift_no}}</div>
+        <div class="col col-26" ng-click="alocate(operator.id)">({{operator.from_date}})-({{ operator.to_date}})</div>
+        <div class="col col-5 ion-trash-a" ng-click="deleteConf(operator.id)"></div>
+        <div class="col col-4" ng-click="alocate(operator.id)" ng-class=" IsVisible && operator.id == subid ?  'ion-ios-arrow-down' : 'ion-ios-arrow-forward '"></div>
+      </div>
+      <div class="row " style="color: #604646;border-bottom: 1px solid #9c9c9c;padding: 5px; background-color: #fff;" ng-if="operator.id == subid" ng-show="IsVisible" ng-repeat="operator1 in operator.operator_mapping_allocations" ng-click="subCategory(subcat.id,subcat.name)">
+
+        <div class="col col-20">{{ operator1.operator.operator_name}}</div>
+        <div class="col col-25">{{ operator.machine.machine_name}}</div>
+        <div class="col col-10">{{ operator.shifttransaction.shift_no}}</div>
+        <div class="col col-26">{{ operator1.date}}</div>
+        <div class="col col-7 ion-edit" ng-show="{{todaydat | date: 'yyyy-MM-dd'}} >= {{operator1.date}}" ng-click="edit(operator.id,operator1)"></div>
+        <div class="col col-3"></div>
+      </div> -->
+</div>
+  </ion-content>
+</ion-view>
+
+
+
+<script id="operatorModel.html" type="text/ng-template">
+  <ion-view cache-view="false" >
+    <!-- <ion-header-bar class="bar1" class="slidepopup">
+
+      <div class="row" style="background-color:#6BD191;  margin: 0;padding: 5px;">
+        <div class="col col-90">
+          <p class="statustext">Create Operator</p>
+        </div>
+        <div class="col col-10" ng-click="opmodal.hide();cleandata();">
+          <i class="icon ion-close closes"></i>
+        </div>
+      </div>
+
+
+
+    </ion-header-bar> -->
+    <ion-header-bar>
+      <div class="row">
+        <div class="col col-90">
+          <p style="color: white;">Create Operator</p>
+        </div>
+        <div class="col col-10">
+          <i style="color: white;" class="icon ion-android-close close" ng-click="opmodal.hide();cleandata();"></i>
+        </div>
+      </div>
+    </ion-header-bar>
+
+    <ion-content scroll="true">
+     <form name="operatorform">
+            <div class="item item-input"> 
+                    <span class="input-label col col-50">Machine</span>:<span class="col col-50">   
+                      <select ng-disabled="alloedit == 1" ng-model="operatorassignregistration.machine_id" ng-required="true" ng-options="g.id as g.machine_name for g in machinenameList" 
+                      style="width:90%;padding:2%;margin-top: 10px">
+                      <option value="" style="display:true">---Select---</option>
+                      </select>
+                 </div>  
+        
+                   <div class="item item-input"> 
+                    <span class="input-label col col-50">Select Operator</span>:<span class="col col-50">   
+                      <select ng-model="operatorassignregistration.operator_id" ng-required="true" ng-options="op.id as op.operator_name for op in operatorList" 
+                      style="width:90%;padding:2%;margin-top: 10px">
+                      <option value="" style="display:true">---Select---</option>
+                      </select>
+                      </span>
+                  </div>     
+        
+        
+                  <div class="item item-input" ng-show="alloedit == 0"> 
+                    <span class="input-label col col-50">Select Shift</span>:<span class="col col-50">   
+                      <select  ng-model="operatorassignregistration.shifttransaction_id" ng-required="true" style="width:90%;padding:2%;margin-top: 10px">
+                      <option value="" style="display:true">---Select---</option>
+                      <option ng-repeat="sh in shiftList" value="{{sh.id}}">{{sh.shift_no}} ({{sh.shift_start_time}}-{{sh.shift_end_time}})</option>
+                      </select>
+                      </span>
+                  </div>
+
+                  <div class="item item-input" ng-show="alloedit == 1"> 
+                        <span class="input-label col col-50">Shift</span>:<span class="col col-50">   
+                                <input type="text"  ng-disabled="alloedit == 1" ng-model="shiftvalueedit" style="width:90%;padding:2%;margin-top: 10px">
+                          </span>
+                      </div>
+
+                  <div class="item item-input"> 
+                        <span class="input-label col col-50">Description</span>:<span class="col col-50">   
+                         <!-- <input type="text"  ng-model="operatorassignregistration.description"  style="width:90%;padding:2%;margin-top: 10px"> -->
+                         <select  ng-model="operatorassignregistration.description" style="width:90%;padding:2%;margin-top: 10px">
+                            <option value="" style="display:true">---Select---</option>
+                            <option value="Turning Center Operator">Turning Center Operator</option>
+                            <option value="VMC Operator">VMC Operator</option>
+                            <option value="HMC Operator">HMC Operator</option>
+                            <option value="VTL Operator">VTL Operator</option>
+                            <option value="Turning Center Programmer">Turning Center Programmer</option>
+                            <option value="VMC Programmer">VMC Programmer</option>
+                            <option value="HMC Programmer">HMC Programmer</option>
+                            <option value="VTL Programmer">VTL Programmer</option>
+                            <option value="Turning Center Setter">Turning Center Setter</option>
+                            <option value="VMC Setter">VMC Setter</option>
+                            <option value="HMC Setter">HMC Setter</option>
+                            <option value="VTL Setter">VTL Setter</option>
+                            </select>
+                          </span>
+                      </div>
+<!-- 
+                      <div class="item item-input" ng-show="alloedit == 1"> 
+                          <span class="input-label col col-50">Description</span>:<span class="col col-50">   
+                           <input type="text"  ng-disabled="alloedit == 1" ng-model="operatorassignregistration.description"  style="width:90%;padding:2%;margin-top: 10px">
+                          </span>
+                        </div> -->
+
+                   <div ng-show="alloedit == 0">
+                      <!-- <div class="item item-input"> 
+                            <span class="input-label col col-50">From Date</span>:<span class="col col-50">   
+                             <input type="text" ng-click="openDatePicker()" readonly ng-model="operatorassignregistration.from_date" ng-required="true" style="width:90%;padding:2%;margin-top: 10px">
+                              </span>
+                          </div> -->
+
+                          <div class="item item-input"> 
+                                <!-- <span class="input-label col col-50">To Date</span>:<span class="col col-50">   
+                                 <input type="text"  ng-click="openDatePicker1()" readonly ng-model="operatorassignregistration.to_date" ng-required="true" style="width:90%;padding:2%;margin-top: 10px">
+                                  </span>
+                              </div> -->
+                            </div>
+
+                            <div ng-show="alloedit == 1">
+                                    <!-- <div class="item item-input"> 
+                                          <span class="input-label col col-50">Date</span>:<span class="col col-50">   
+                                           <input type="text" ng-disabled="alloedit == 1" readonly ng-model="edit_date" style="width:90%;padding:2%;margin-top: 10px">
+                                            </span>
+                                        </div>
+               -->
+                                          </div>
+
+                      <!-- <div class = "col col-40" ng-click="openDatePicker()" >                                    
+                            <input class="datebox" type="text" ng-model="operatorassignregistration.from_date" placeholder="{{Date | date :'dd-MM-yyyy' }}" 
+                             ng-readonly="test" style="border: none;background-color: #F2F1F0;width: 100%!important;height: 100%!important;text-align: center;" /> 
+                          </div> -->
+
+                      <div class="row">
+                            <div class="col col-10"></div>
+                               <div class="col col-80 col-center">
+                                   <center><button typt="submit" ng-disabled="operatorform.$invalid" ng-click="operatorForm()" class="button gonext-button">Submit</button></center>
+                               </div>
+                            <div class="col col-10"></div>
+                       </div>
+
+
+                    </form>
+
+    </ion-content>
+  </ion-view>
+</script>

@@ -1,0 +1,48 @@
+.titletext{
+    font-weight: bold;
+    color: #616161;
+    text-align: center;
+    font-size: 15pt;
+    font-family:"Montserrat";
+}
+.close{
+   color: #616161;
+   font-size: 22px;
+}
+.bar{
+        width: 100%;
+        background-color: #F69222;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+ th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    color: black;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.border{
+        border-left: solid 10px;
+        height: 50px;
+
+} 
+
+.red{
+        color: #ed6661!important;  
+        font-weight: bold;
+}
+
+.white{
+        color: #FFFFFF!important;  
+}

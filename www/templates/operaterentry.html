@@ -1,0 +1,114 @@
+<ion-view ng-controller="OperaterEntryCtrl" cache-view="false">
+         <link href="css/operaterentry.css" rel="stylesheet" cache-view="false"> 
+
+    <ion-header-bar>
+         <div class="row">             
+             <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+             <div class="col col-10"><i class="icon ion-android-close close" ng-click="Logout()"></i></div>
+         </div>
+    </ion-header-bar>   
+    <ion-content>
+          <div class="header">Operator Entry</div>
+
+         <div class="item item-input"> 
+            <span class="input-label col col-50">Select MachineName</span>:<span class="col col-50">   
+              <select ng-model="machinenameside"  ng-change="machinename(machinenameside)" ng-options="g.machine_name for g in machinenameList" 
+              style="width:90%;padding:2%;margin-top: 10px">
+              <option value="" style="display:true">---Select---</option>
+              </select>
+         </div>  
+
+          <div class="item item-input"> 
+            <span class="input-label col col-50">Select JobName</span>:<span class="col col-50">   
+              <select ng-model="jobnameside"  ng-change="jobname(jobnameside)" ng-options="g.job_name for g in jobnameList" 
+              style="width:90%;padding:2%;margin-top: 10px">
+              <option value="" style="display:true">---Select---</option>
+              </select>
+              </span>
+          </div>
+
+           <div class="item item-input"> 
+            <span class="input-label col col-50">Select Operator</span>:<span class="col col-50">   
+              <select ng-model="operatorside"  ng-change="operator(operatorside)" ng-options="g.operation_name for g in operatorList" 
+              style="width:90%;padding:2%;margin-top: 10px">
+              <option value="" style="display:true">---Select---</option>
+              </select>
+              </span>
+          </div>     
+
+
+          <div class="item item-input"> 
+            <span class="input-label col col-50">Select Shift</span>:<span class="col col-50">   
+              <select ng-model="shiftside"  ng-change="shift(shiftside)" ng-options="g.shift_no for g in shiftList" 
+              style="width:90%;padding:2%;margin-top: 10px">
+              <option value="" style="display:true">---Select---</option>
+              </select>
+              </span>
+          </div>
+
+
+          <div class="item item-input"> 
+            <span class="input-label col col-50">Select Time</span>:<span class="col col-50">   
+               <select ng-model="timeside"  ng-change="time(timeside)" ng-options="g.value for g in timeList" 
+               style="width:90%;padding:2%;margin-top: 10px">
+               <option value="" style="display:true">---Select---</option>
+              </select>
+              </span>
+          </div>
+
+
+
+          <label class="item item-input">
+              <span class="input-label col col-50">No.of Rejects</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.Rejects" required></span>
+          </label>
+
+          <label class="item item-input">
+              <span class="input-label col col-50">No.of Rework</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.Rework" required></span>
+          </label>
+
+          <label class="item item-input">
+              <span class="input-label col col-50">No.of Parts Inspected</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.PartsInspected" required></span>
+          </label>
+
+          <label class="item item-input">
+              <span class="input-label col col-50 linetext">No.of Parts Moved <br>To Next Operation</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.PartsMovedNextOperation" required></span>
+          </label>
+
+          <label class="item item-input">
+              <span class="input-label col col-50">Reasons For <br> Downtime</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.ReasonsForDowntime" required></span>
+          </label>
+
+          <label class="item item-input">
+              <span class="input-label col col-50 text-wrap">Last Machine <br> Reset Time</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.LastMachineResetTime" required></span>
+          </label>
+
+          <label class="item item-input">
+              <span class="input-label col col-50">Remarks</span>:<span class="col col-50">
+              <input type="text" name="input" ng-model="data.Remarks" required></span>
+          </label>
+
+          <div class="row">
+                 <div class="col col-10"></div>
+                    <div class="col col-80 col-center">
+                        <center><button typt="submit" ng-click="operationentry()" class="button gonext-button">Submit</button></center>
+                    </div>
+                 <div class="col col-10"></div>
+            </div>
+        <br><br><br>
+
+  </ion-content>
+
+  
+
+    
+</ion-view>
+    
+    
+
+  

@@ -1,0 +1,152 @@
+<style type="text/css">
+  .chart_div {
+    display: block;
+    margin-top: 0px;
+    width: 180px;
+    height: 280px;
+  }
+  </style>
+  
+  <ion-view ng-app="ionicApp"  cache-view="false">
+    <link href="css/machine.css" rel="stylesheet" cache-view="false"> 
+      <ion-content>
+        <ion-list>
+          <div ng-repeat="group in groups">       
+            <ion-item class="item-stable" ng-click="toggleGroup(group);" ng-class="{active: isGroupShown(group)}">
+                <i class="iconcolor" style="color: rgb(246, 146, 34);" ng-class="isGroupShown(group) ? ' ion-android-arrow-dropdown-circle' : 'ion-android-arrow-dropright-circle'"> &nbsp;&nbsp;<a class="icontext"> {{group.name}}</a></i>
+                &nbsp;            
+            </ion-item>
+            <ion-item class="item-accordion" ng-repeat="item in group.items"  ng-show="isGroupShown(group);">
+            
+            <button class="btn titlebutton" ng-model="logdata" ng-class="{'activat' : logdata == 'MachineTimeline'}" ng-click="check('MachineTimeline',1)">Machine Timeline</button>
+  
+            <button class="btn titlebutton"  ng-model="logdata" ng-class="{'activat' : logdata == 'ProductionDetails'}" ng-click="check('ProductionDetails',2);productiondetails()">Production Details</button>
+  
+                      <div class="form-group" ng-show="show==1">
+  
+                        <div class="row">Current Shift&nbsp;:&nbsp;<p>{{shiftsList}}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Current Date&nbsp;:&nbsp;<p>{{date}}</p></div>            
+                         
+                          <center>
+                              <div id="{{group.id}}" style="margin-left: -60px;"></div>
+                          </center>
+  
+                         <div class="cardlist" ng-click="openModal(3)">
+                            <div class = "row">
+                                <div class = "col col-20"> <div id="circlerunning"></div></div>
+                                <div class = "col col-30 status">Running</div>
+                                <div class = "col col-40 hours">{{Hour_times.tot_run}}</div>
+                                <div class = "col col-10"><i class="icon ion-chevron-right righticon"></i></div>
+                            </div>
+                          </div>
+  
+                          <div class="cardlist" ng-click="openModal(0)">
+                            <div class = "row">
+                                <div class = "col col-20"> <div id="circleidel"></div></div>
+                                <div class = "col col-30 status">Downtime</div>
+                                <div class = "col col-40 hours">{{Hour_times.tot_idle}}</div>
+                                <div class = "col col-10"><i class="icon ion-chevron-right righticon"></i></div>
+                            </div>
+                          </div>
+  
+                          <div class="cardlist" ng-click="openModal(100)">
+                            <div class = "row">
+                                <div class = "col col-20"> <div id="circlestopping"></div></div>
+                                <div class = "col col-30 status">Stopping</div>
+                                <div class = "col col-40 hours">{{Hour_times.tot_stop}}</div>
+                                <div class = "col col-10"><i class="icon ion-chevron-right righticon"></i></div>
+                            </div>
+                          </div>
+                          <div class="cardlist">
+                            <div class = "row">
+                                <div class = "col col-20"> <div id="circleremaning"></div></div>
+                                <div class = "col col-30 status">Remaining</div>
+                                <div class = "col col-40 hours">{{Hour_times.no_data}}</div>
+                                <div class = "col col-10"><!-- <i class="icon ion-chevron-right righticon"></i> --></div>
+                            </div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group" ng-show="show==2">                              
+                        <div class="row">Current Shift&nbsp;:&nbsp;<p>{{shiftsList}}</p></div>
+                        <div class="row">Current Date&nbsp;:&nbsp;<p>{{date}}</p></div>
+  
+                        <table style="width:90%;margin-bottom: 10px;margin-left: 10px;">
+                             <tr>
+                               <td class="tdtitles">Parts produced</td>
+                               <td class="tdtables">{{Hour_times.shift_part_count }}</td>
+                             </tr>
+                             <tr>
+                               <td class="tdtitles">Rejects</td>
+                               <td class="tdtables">0</td>                  
+                             </tr>
+                             <tr>
+                               <td class="tdtitles">Rework</td>
+                               <td class="tdtables">0</td>
+                             </tr>
+                             <tr>
+                               <td class="tdtitles">Inspection</td>
+                               <td class="tdtables">0</td>                  
+                             </tr>
+                             <tr>
+                               <td class="tdtitles">Remaining parts</td>
+                               <td class="tdtables">0</td>
+                             </tr>
+                             <tr>
+                               <td class="tdtitles">Parts delivered</td>
+                               <td class="tdtables">0</td>                  
+                             </tr>                                
+                        </table>
+                      </div>  
+           </ion-item>
+         </div>
+      </ion-list>   
+    </ion-content>
+  </ion-view>
+  
+   
+  <script id="results.html"  type="text/ng-template">
+      <ion-view cache-view="false" class="slidepopup">   
+      <link href="css/machine.css" rel="stylesheet" cache-view="false">  
+              <ion-header-bar class="bar1">                          
+                   <div class="row" ng-show="IDStatus==3"  style="background-color:#6BD191;  margin: 0;padding: 5px;">             
+                     <div class="col col-90"> <p class="statustext">RUNNING</p></div>
+                     <div class="col col-10" ng-click="closeModal();mod_hoursplitside='0'"> <i class="icon ion-close closes"></i> </div>
+                   </div>
+  
+                    <div class="row" ng-show="IDStatus==0"  style="background-color:#eaab5b; margin: 0;padding: 5px;">             
+                     <div class="col col-90"> <p class="statustext">IDLETIME</p></div>
+                     <div class="col col-10" ng-click="closeModal();mod_hoursplitside='0'"> <i class="icon ion-close closes"></i> </div>
+                   </div>
+  
+                   <div class="row" ng-show="IDStatus==100"  style="background-color:#ed6661;  margin: 0;padding: 5px;">             
+                     <div class="col col-90"> <p class="statustext">STOPPED</p></div>
+                     <div class="col col-10" ng-click="closeModal();mod_hoursplitside='0'"> <i class="icon ion-close closes"></i> </div>
+                   </div> 
+              </ion-header-bar> 
+        <ion-content scroll="true">		  
+  
+                <table style="width:100%;">
+                       <tr>
+                         <td class="tdtitlesnew">Time</td>
+                         <td class="tdtitlesnew">H:M:S</td>
+                         <td class="tdtitlesnew" ng-show="IDStatus==3">Parts</td>
+                       </tr>
+                       <tr ng-show="IDStatus==3" ng-repeat="x in Hour_times.data">
+                         <td class="tdtablesnew">{{x.time}}</td>
+                         <td class="tdtablesnew">{{x.run_time}}</td> 
+                         <td class="tdtablesnew">{{x.count}}</td>                  
+                       </tr>
+                       <tr ng-show="IDStatus==0" ng-repeat="x in Hour_times.data">
+                         <td class="tdtablesnew">{{x.time}}</td>
+                         <td class="tdtablesnew">{{x.idle_time}}</td>
+                       </tr>
+                       <tr ng-show="IDStatus==100" ng-repeat="x in Hour_times.data">
+                         <td class="tdtablesnew">{{x.time}}</td>
+                         <td class="tdtablesnew	">{{x.stop_time}}</td>                  
+                       </tr>	                                                        
+                  </table>   
+                                               
+        </ion-content> 
+      </ion-view>
+   </script>

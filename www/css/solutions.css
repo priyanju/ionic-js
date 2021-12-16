@@ -1,0 +1,133 @@
+.btn-group{
+        background-color: #C3C3C3;
+        width: 95%;
+        padding: 15px 15px;
+        margin: 0px 10px;
+        border: none;
+        border-bottom: 1px solid white;
+        text-align: left;
+        font-family:"Montserrat";
+        font-size: 18px;
+}
+.search{
+        margin-right:10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        width: 95%;
+}
+.searchicon{
+      color: #7F8C8D;
+      font-size: 22px;
+      margin-right: 20px;
+}
+.searchtab{
+      color: white;
+      font-size: 22px;
+      margin-right: 20px;
+}
+.infoback{
+      background-color: #F69222;
+      padding: 5px 15px;
+}
+.infoicon{
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+}
+.labeltext1{
+      font-family:"Montserrat";
+      color: #212121;
+      font-size: 15px;
+      margin-top: 5px;
+}
+.labeltext{
+      font-family:"Montserrat";
+      color: #212121;
+      font-size: 15px;
+      margin-top: 5px;
+      font-weight: bold;
+}
+.labelsub{
+      font-family:"Montserrat";
+      color: #616161;
+      font-size: 15px;
+      margin-top: 5px; 
+      margin-left: 10px;
+}
+.labelsub1{
+      font-family:"Montserrat";
+      color: #616161;
+      font-size: 15px;
+      margin-top: 5px; 
+}
+.ok-button {
+      background-color:grey;
+      width: 70%;
+      height: 38px !important;
+      min-height: 38px !important;
+      color: #fff;
+      font-size: 15px;
+      padding: 0px 20px;
+}
+.oksubmit-button {
+      background-color: #F69222;
+      width: 95%;
+      height: 38px !important;
+      min-height: 38px !important;
+      color: #fff;
+      font-size: 15px;
+}
+
+.submit-button{
+      background-color: #F69222;
+      width: 60%;
+      height: 38px !important;
+      min-height: 38px !important;
+      color: #fff;
+      font-size: 15px;
+}
+.titlesub{
+    color: white;
+    text-align: left;
+    font-size: 13pt;
+    margin-top: 3px;
+    font-weight: bold;
+    font-family: "Montserrat";
+}
+.backward{
+    color: white;
+    font-size: 25px;
+}
+.formulatext{
+    font-family: "Montserrat";
+    color: #212121;
+    font-size: 18px;
+    margin: 15px 5px;
+}
+.formulasub{
+    font-family: "Montserrat";
+    color: #616161;
+    font-size: 15px;
+    margin: 15px 25px;
+}
+.titlebutton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  vertical-align: top;
+  min-width: 60px;
+  line-height: 35px;
+  padding: 0 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 1px rgba(#000000, .1);
+  background: #565656;
+  border: 1px solid;
+  font-family:"Montserrat";
+}
+

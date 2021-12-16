@@ -1,0 +1,341 @@
+<style>
+  .alrm_card {
+    margin: 9px 10px;
+  }
+
+  .alrm_card .row {
+    display: block !important;
+  }
+
+  .alrm_card h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .alrm_card span {
+    color: #f69222;
+    padding-right: 5px;
+  }
+
+  .alrm_switch {
+    position: absolute;
+    right: 10px;
+    margin-top: 9px;
+  }
+
+  .alrm_switch .item {
+    padding: 30px 40px;
+    background: none;
+
+  }
+
+  .edit_time {
+    background: #f69222;
+    border: none;
+    color: white;
+    border-radius: 5px;
+  }
+
+  strong {
+    color: #f69222;
+  }
+</style>
+
+
+
+<ion-view cache-view="false">
+  <link href="css/tab.css" rel="stylesheet" cache-view="false">
+
+  <!-- <ion-content  on-swipe-right="goBack()" on-swipe-left="goForward()"> -->
+
+  <ion-header-bar>
+    <div class="row">
+      <div class="col col-40">
+        <a class="titletext" ng-click="popover1.show($event)">Yantra24x7</a>
+      </div>
+      <div class="col col-50">
+        <p class="titletext" style="font-size:12px;float:right;">{{myname}}</p>
+      </div>
+      <div class="col col-10">
+        <i class="icon ion-power logout" ng-click="Logout()"></i>
+      </div>
+    </div>
+  </ion-header-bar>
+  
+ 
+
+
+  <!--  <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()"></button>
+    </ion-nav-buttons> 
+     -->
+
+  <ion-tabs class="tabs-striped tabs-top tabs-background-dark tabs-color-energized">
+
+    <ion-tab title="HOME" ng-click="homepage()" href="#/tab/home">
+      <ion-nav-view name="tab-home"> </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="MACHINE" ng-click="machinepage();machineinit()" href="#/tab/machine">
+      <ion-nav-view name="tab-machine"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="OPERATOR" ng-click="operatorpage();operatorinit()" href="#/tab/operator">
+      <ion-nav-view name="tab-operator"></ion-nav-view>
+    </ion-tab>
+
+    <!-- <ion-tab title="JOB" href="#/tab/job">
+      <ion-nav-view name="tab-job"></ion-nav-view>
+    </ion-tab> -->
+
+
+
+  </ion-tabs>
+  <!-- </ion-content> -->
+
+  <ion-footer-bar class="row">
+<!--     <div class="col col-20">
+      <i class="icon ion-home menuicon" ng-click="homepage()"></i>
+    </div> -->
+    <div class="col col-25">
+      <i class="icon  ion-alert-circled menuicon" ng-click="alert()">
+        <span class="badge-notify"></span>
+      </i>
+    </div>
+    <div class="col col-25">
+      <i class="icon  ion-ios-bell menuicon" ng-click="alarm()">
+        <span class="badge-alarm"></span>
+      </i> 
+    </div>
+    <div class="col col-25">
+      <i class="icon ion-wrench menuicon" ng-click="settings()"></i>
+    </div>
+    <div class="col col-25">
+      <i class="icon ion-navicon-round menuicon" ng-click="popover.show($event)"></i>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>
+
+
+  <script id="templates/popover.html" type="text/ng-template">
+      <ion-popover-view style="height: 100px">
+        <ion-content>
+          <div class="list">            
+            <a class="item" ng-click="operaterentry()">
+              Operator Entry 
+            </a>
+             <a class="item" ng-click="changepassword()">
+              Change Password
+            </a>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+ </script>
+
+<!--  
+  <script id="templates/popover1.html" type="text/ng-template">
+      <ion-popover-view style="height: 150px">
+        <ion-content>
+          <div class="list">            
+            <a class="item" href="#/tab/dashboard">
+              Dash Board 1
+            </a>
+             <a class="item">
+             Dash Board 2
+            </a>
+             <a class="item">
+              Dash Board 3
+            </a>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+ </script> -->
+
+
+
+<script id="alarm.html" type="text/ng-template">
+        <ion-view class="alarmpopup" cache-view="false">
+           <ion-header-bar>
+              <div class="row">             
+                 <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+                 <div class="col col-10" ng-click="closemodalalarm()"> <i class="icon ion-close close" ></i> </div>
+              </div>
+           </ion-header-bar>    
+           <ion-header-bar class="bar-subheader header">
+            <div class="col col-90" >Alarms</div>
+               <div class="col col-10" ><!--i class="icon ion-android-add" ng-click="setshow=2"></i--></div>
+           
+         </ion-header-bar>   
+
+           <ion-content>               
+              <ion-refresher on-refresh="doRefresh()"></ion-refresher>    
+              <img ng-show="AlarmData.length <= 0" src="img/nodata.jpeg" style="width: 100%;height: 50%;">
+
+                <ion-list show-delete="false" can-swipe="true" ng-repeat="x in AlarmData"  text-wrap>
+                    <ion-item >
+                        <div class="row">             
+                            <div class="col texttitle">  {{x.machine.machine_name}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col textdate" style="font-size:14px;"> {{x.created_at | date:'dd-MM-yyyy'}} ({{x.created_at | date : "shortTime"}} - {{x.updated_at | date : "shortTime"}}) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{x.hour}} h {{x.minute}} m {{x.second}} s</div>
+                         </div> 
+                         <p class="test" style="color:#f69222">{{x.alarm_type}} {{x.alarm_number}} {{x.alarm_message}}</p>
+                         <!-- <ion-option-button class="button-assertive"  ng-click="delete(x.id)">Delete</ion-option-button> -->
+                    </ion-item>                    
+                </ion-list>
+          </ion-content>
+        </ion-view>
+</script>
+
+
+
+
+<script id="alert.html" type="text/ng-template">
+    <ion-view class="alarmpopup">    
+        <ion-header-bar>
+           <div class="row">             
+             <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+             <div class="col col-10" ng-click="closemodalalert()">  <i class="icon ion-close close" ></i> </div>
+          </div>
+        </ion-header-bar>   
+        <ion-header-bar class="bar-subheader header">
+          <div class="col col-90" >Alerts</div>
+             <div class="col col-10" ><!--i class="icon ion-android-add" ng-click="setshow=2"></i--></div>
+         
+       </ion-header-bar>
+    
+        <ion-content>
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+            <ion-list show-delete="false" can-swipe="true" ng-repeat="alert in alertRes"  text-wrap>
+                <ion-item style="padding:0px">
+                  <div class="col texttitle"> <strong>Machine : </strong> {{alert.machine_name}}</div>
+                   <!-- <span class="test" style="float: right; font-size: 14px;margin: 4px;"><strong>Reason : </strong>{{alert.reason}}</span> --> 
+                  <div  class="col texttitle"><strong>Reason : </strong>{{alert.reason}}</div>  
+                  <div class="col texttitle" style="font-size:14px;"><strong> Date :</strong> {{alert.date}} &nbsp;&nbsp;<strong>Time : </strong>{{alert.time}}</div>
+                    
+                </ion-item>                    
+            </ion-list>
+
+          <img ng-show="alertRes.length <= 0" src="img/nodata.jpeg" style="width: 100%;height: 50%;">
+        </ion-content>
+     </ion-view>
+ </script>
+
+
+<script id="setting.html" type="text/ng-template">
+
+
+    <ion-view class="alarmpopup"> 
+ 
+
+        <ion-header-bar>
+           <div class="row">    
+            <div class="col col-10">  </div>         
+             <div class="col col-80"> <p class="titletext">Yantra24x7</p></div>
+            <div class="col col-10"  ng-click="closemodalsetting()">  <i class="icon ion-close close"></i> </div>
+          </div>
+
+        </ion-header-bar>  
+         <ion-header-bar class="bar-subheader header">
+           <div class="col col-90" >Alert Setting</div>
+             <div class="col col-10" ><!--i class="icon ion-android-add" ng-click="setshow=2"></i--></div>
+        </ion-header-bar>
+
+      <ion-content >
+
+<!-- 
+             <div class="row header">
+                 <div class="col col-10" ng-show="setshow != 2"></i></div>
+            <div class="col col-10" ng-show="setshow == 2" ng-click="setshow = 1"></div>
+            <div class="col col-80" >Setting</div>
+             <div class="col col-10"><i class="icon ion-plus" ng-click="setshow = 2"></i></div>
+           </div> -->
+
+
+         
+
+           <div ng-hide="setshow == 2" class="card alrm_card" ng-repeat="alrm in setalarmgetRes" style="padding:2%">
+              
+                <div class="row item-divider">
+                  <div class="alrm_switch"><ion-toggle ng-model="alrm.active" ng-true-value="true" ng-false-value="false" ng-change="setStatus(alrm.active,alrm.id,alrm.time_interval);alrm.time_interval ? alrm.active=true : alrm.active=false"></ion-toggle></div>
+                  <h1>{{alrm.machine.machine_name}} </h1>
+                  <select ng-show="setshow1 == 4" ng-model="alrm.time_interval" ng-change="setsave(alrm);setshow1=0">
+                    <option value="">---Select---</option>
+                    <option ng-repeat="val in times">{{val}}</option>
+                   </select>
+                  <span ng-hide="setshow1 == 4">{{alrm.time_interval}}</span><span>Mins /&nbsp;{{alrm.alarm_for}}</span><button class="edit_time" style="border: none;color: white;" ng-click="setshow1 =4">Edit</button>
+                 
+                   <!-- <div class="col col-80" > <center><p ></p></center></div>
+                    <div class="col col-10" ng-hide="setshow1 == 4"> <button style="background: #444444;border: none;color: white;" ng-click="setshow1 =4">Edit</button></div>
+                    <div class="col col-10" ng-show="setshow1 == 4"> <button style="background-color: #F69222;border: none;color: white;" ng-disabled="alrm.time_interval == ''" ng-click="setsave(alrm);setshow1 =3">Save</button></div> -->
+                </div>
+              
+                
+                 
+             <!-- <div class = "item item-text-wrap" style="padding:2%">    
+              <p>Alarm Time (Mins): <span ng-hide="setshow1 == 4">{{alrm.time_interval}}</span>  
+               <select ng-show="setshow1 == 4" ng-model="alrm.time_interval" >
+              <option value="">---Select---</option>
+              <option ng-repeat="val in times">{{val}}</option>
+             </select></p> 
+               <p>Alarm Type : <span>{{alrm.alarm_for}}</span> </p> 
+                </div>     
+               
+                 <ion-toggle ng-model="alrm.active" ng-true-value="true" ng-false-value="false" ng-change="setStatus(alrm.active,alrm.id,alrm.time_interval);alrm.time_interval ? alrm.active=true : alrm.active=false">Notification Enable/Disable</ion-toggle>         
+            </div> -->
+
+
+
+
+
+           
+               
+            <div ng-show="setshow == 2">
+          
+             <form name="setform">
+             <div class="item item-input"> 
+                  <span class="input-label col col-50">MachineName</span>:<span class="col col-50">   
+                  <select ng-model="settingData.machine_id"  ng-change="machinename(settingData.machine_id)" ng-options="g.id as g.machine_name for g in machinenameList" 
+                  style="width:90%;padding:2%;margin-top: 10px">
+                  <option value="" style="display:true">---Select---</option>
+                  </select>
+                </span>
+             </div> 
+
+
+             <div class="item item-input"> 
+                  <span class="input-label col col-50">Status</span>:<span class="col col-50">   
+                   <select ng-model="settingData.alarm_for"  ng-change="status(settingData.alarm_for)" ng-options="g.status_name as g.status_name for g in statusList" style="width:90%;padding:2%;margin-top: 10px">
+                   <option value="" style="display:true">---Select---</option>
+                  </select>
+                  </span>
+             </div>
+
+           
+
+              <label class="item item-input">
+                  <span class="input-label col col-50">Time (Mins)</span>:<span class="col col-50">
+                  
+                    <select style="width:90%;padding:2%;margin-top: 10px" ng-model="settingData.time_interval" >
+              <option value="">---Select---</option>
+              <option ng-repeat="val in times">{{val}}</option>
+             </select>
+           </span>
+             </label>
+
+           
+             
+
+
+            <div class="row">
+                 <div class="col col-10"></div>
+                    <div class="col col-80 col-center">
+                        <center><button typt="button" ng-click="settingsubmit(settingData)" class="button next-button">Submit</button></center>
+                    </div>
+                 <div class="col col-10"></div>
+            </div>            
+          </form> 
+        </ion-content> 
+     </ion-view>
+ </script>

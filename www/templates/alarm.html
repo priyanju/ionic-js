@@ -1,0 +1,26 @@
+
+ <ion-view class="alarmpopup" cache-view="false">
+           <ion-header-bar>
+              <div class="row">             
+                 <div class="col col-90" > <p class="titletext">Yantra24x7</p></div>
+                 <div class="col col-10"> <i class="icon ion-android-close close" ng-click="closemodalalarm()"></i> </div>
+              </div>
+           </ion-header-bar>       
+
+           <ion-content ng-init="alarm()">               
+              <ion-refresher on-refresh="doRefresh()"></ion-refresher>    
+               <div class="header">Alarm</div>
+                <ion-list show-delete="false" can-swipe="true" ng-repeat="x in AlarmData"  text-wrap>
+                    <ion-item >
+                        <div class="row">             
+                            <div class="col texttitle">  {{x.machine.machine_name}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col textdate" style="font-size:14px;"> {{x.created_at | date:'dd-MM-yyyy'}} ({{x.created_at | date : "shortTime"}} - {{x.updated_at | date : "shortTime"}}) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{x.hour}} h {{x.minute}} m {{x.second}} s</div>
+                         </div> 
+                         <p class="test">{{x.alarm_type}} {{x.alarm_number}} {{x.alarm_message}}</p>
+                         <ion-option-button class="button-assertive"  ng-click="delete(x.id)">Delete</ion-option-button>
+                    </ion-item>                    
+                </ion-list>
+          </ion-content>
+        </ion-view>

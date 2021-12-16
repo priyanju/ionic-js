@@ -1,0 +1,140 @@
+.badge-notify{
+   position:relative;
+   font-weight: bold;
+   top: -40px;
+   left: 55px;
+   width: 15px;
+   height: 15px;
+   font-size: 15px;
+   color: #ffe0b2;
+   padding: 0;
+}
+.badgetools{
+    position: relative;
+    font-weight: bold;
+    top: -36px;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    font-size: 13px;
+    color: white;
+    padding: 0;
+}
+.badge-alarm{
+   position:relative;
+   font-weight: bold;
+   top: -40px;
+   left: 55px;
+   width: 15px;
+   height: 15px;
+   font-size: 15px;
+   color: #ffe0b2;
+   padding: 0;
+}
+.titletext{
+    font-weight: bold;
+    color: #616161;
+    text-align: center;
+    font-size: 14pt;
+    font-family:"Montserrat";
+}
+.header {
+    padding:10px;
+    background:#444444;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    font-family: "Montserrat";
+}
+.footertext{
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-family: "Montserrat";
+    margin-left: 50px;
+}
+.menuicon {
+   font-size: 30px;
+   color: #4d4848;
+   margin: 10px 20px;
+
+}
+.iconcolor {
+   font-size: 20px;
+   padding-left: 25px;
+   padding-right: 25px;
+   color:#0576D2;
+}
+.icontext{
+    font-size: 20px;
+    color:#616161;
+    font-family:"Montserrat";
+}
+title{
+   font-family:"Montserrat";
+   font-weight: bold;
+}
+.bar{
+    width: 100%;
+    background-color: #F69222;
+}
+.logout{
+    color: #616161;
+    font-size: 22px;
+}
+.close{
+   color: #616161;
+   font-size: 22px;
+}
+.shoppingcarttab{
+    color: #616161;
+    font-size: 22px;
+}
+.tabs-striped.tabs-color-energized .tab-item {
+     color: #F69222;
+     font-family: "Montserrat";
+}
+.alarmpopup{
+    width: 100%;
+    min-height: 100%; 
+}
+
+.item-complex .item-content, .item-radio .item-content {
+    position: relative;
+    z-index: 2;
+    padding: 0px 50px 5px 5px;
+    border: none;
+    background-color: #fff;
+}
+
+.texttitle{
+    font-size: 15px;
+    color:#616161;
+    font-family:"Montserrat";
+    color: black;
+}
+.textdate{
+     font-size: 15px;
+     color:#616161;
+     font-family:"Montserrat";
+     color: black;
+}
+p.test {
+    width: 90%;
+    border: 1px solid #ffffff;
+    word-wrap: break-word;
+    margin-left: 10px;
+    font-size: 12px;
+}
+.item-complex .item-content, .item-radio .item-content {
+    position: relative;
+    z-index: 2;
+    padding: 0px 50px 5px 5px;
+    border: none;
+    background-color: #fff;
+}
+.active 
+.modal-backdrop-bg {
+    opacity: 0 !important;
+}
